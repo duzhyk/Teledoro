@@ -30,9 +30,9 @@ namespace Teledoro.Controllers
                                               }", Encoding.UTF8)
             };
 
-            await client.SendAsync(request);
+            var response = await client.SendAsync(request);
 
-            return Ok();
+            return Ok(response);
         }
     }
 }
