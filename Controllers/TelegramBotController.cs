@@ -17,20 +17,21 @@ namespace Teledoro.Controllers
 
         }
         
-        [HttpPost]
-        public async Task<ActionResult> Post(string body)
+        [HttpPost("{token}")]
+        public async Task<ActionResult> Post(string token)
         {
             var request = new HttpRequestMessage()
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri("https://api.telegram.org/bot1973123977:AAEVZQJ8kLiLM482WX2ciwT4oG-p3mI9SeM/sendMessage"),
+                RequestUri = new Uri("https://api.telegram.org/bot" + token + "/sendMessage"),
                 Content = new StringContent(@"{
                                                   ""chat_id"": 5646908,
                                                   ""text"": ""hi, there""
-                                              }", Encoding.UTF8)
+                                              }", Encoding.UTF8, "application/json")
             };
 
-            var response = await client.SendAsync(request);
+            var response = await client.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
 
             return Ok(response);
         }
