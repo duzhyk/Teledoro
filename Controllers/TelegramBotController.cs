@@ -21,13 +21,15 @@ namespace Teledoro.Controllers
         }
         
         [HttpPost("{token}")]
-        public async Task<ActionResult> Post(string token, [FromBody] Update update)
+        public async Task<ActionResult> Post(string token)
         {
             var client = new TelegramBotClient(token);
-            var response = await client.SendTextMessageAsync(5646908, "msg from tg bot client");
             
-            //var sr = new StreamReader(Request.Body);
-            //var requestContent =  await sr.ReadToEndAsync();
+            
+            var sr = new StreamReader(Request.Body);
+            var requestContent =  await sr.ReadToEndAsync();
+
+            var response = await client.SendTextMessageAsync(5646908, requestContent);
 //
             //var request = new HttpRequestMessage()
             //{
@@ -42,7 +44,7 @@ namespace Teledoro.Controllers
             //var response = await client.SendAsync(request).ConfigureAwait(false);
             //response.EnsureSuccessStatusCode();
 
-            return Ok(update);
+            return Ok();
         }
     }
 }
