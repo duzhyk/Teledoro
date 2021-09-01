@@ -21,7 +21,7 @@ namespace Teledoro.Controllers
         }
         
         [HttpPost("{token}")]
-        public async Task<ActionResult> Post(string token, Update update)
+        public async Task<ActionResult> Post(string token, [FromBody] Update update)
         {
             var client = new TelegramBotClient(token);
             var response = await client.SendTextMessageAsync(5646908, "msg from tg bot client");
