@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Teledoro.Interfaces;
+using Teledoro.Services;
 
 namespace Teledoro
 {
@@ -28,6 +30,7 @@ namespace Teledoro
         {
 
             services.AddControllers();
+            services.AddSingleton<ITelegramBotClientWrapper, TelegramBotClientWrapper>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Teledoro", Version = "v1" });
